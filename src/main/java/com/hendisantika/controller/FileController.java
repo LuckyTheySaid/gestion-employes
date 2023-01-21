@@ -1,8 +1,12 @@
-package com.bezkoder.spring.thymeleaf.file.upload.controller;
+package com.hendisantika.controller;
 
+import java.io.File;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.hendisantika.Service.FilesStorageService;
+import com.hendisantika.entity.FileInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -17,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bezkoder.spring.thymeleaf.file.upload.model.FileInfo;
-import com.bezkoder.spring.thymeleaf.file.upload.service.FilesStorageService;
 
 @Controller
 public class FileController {
@@ -26,13 +28,9 @@ public class FileController {
   @Autowired
   FilesStorageService storageService;
 
-  @GetMapping("/")
-  public String homepage() {
-    return "redirect:/files";
-  }
-
   @GetMapping("/files/new")
   public String newFile(Model model) {
+
     return "upload_form";
   }
 
@@ -43,10 +41,11 @@ public class FileController {
     try {
       storageService.save(file);
 
-      message = "Uploaded the file successfully: " + file.getOriginalFilename();
+      message = "Le fichier est importé avec succès: " + file.getOriginalFilename();
       model.addAttribute("message", message);
+
     } catch (Exception e) {
-      message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
+        message = "Impossible d'importé le fichier: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
       model.addAttribute("message", message);
     }
 
@@ -66,7 +65,8 @@ public class FileController {
     model.addAttribute("files", fileInfos);
 
     return "files";
-  }
+
+      }
 
   @GetMapping("/files/{filename:.+}")
   public ResponseEntity<Resource> getFile(@PathVariable String filename) {
@@ -82,15 +82,16 @@ public class FileController {
       boolean existed = storageService.delete(filename);
 
       if (existed) {
-        redirectAttributes.addFlashAttribute("message", "Delete the file successfully: " + filename);
+        redirectAttributes.addFlashAttribute("message", "Le fichier est bien supprimer: " + filename);
       } else {
-        redirectAttributes.addFlashAttribute("message", "The file does not exist!");
+        redirectAttributes.addFlashAttribute("message", "Le fichier n'existe pas!");
       }
     } catch (Exception e) {
       redirectAttributes.addFlashAttribute("message",
-          "Could not delete the file: " + filename + ". Error: " + e.getMessage());
+          "Impossible de supprimer ce fichier: " + filename + ". Error: " + e.getMessage());
     }
 
     return "redirect:/files";
   }
+
 }

@@ -10,18 +10,22 @@ public class FonctionCountDTO {
     }
 
     public String getLibelle() {
+
         return libelle;
     }
 
     public void setLibelle(String libelle) {
+
         this.libelle = libelle;
     }
 
     public Long getCount() {
+
         return count;
     }
 
     public void setCount(Long count) {
+
         this.count = count;
     }
 }

@@ -2,8 +2,10 @@ package com.hendisantika.entity;
 
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @ToString
@@ -16,6 +18,12 @@ public class Employer {
 
     @Column(nullable = false,unique = true)
     private String NumBadge;
+    @Column(nullable = false)
+    private String CINE;
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="dd-MM-yyyy")
+    private Date date_naissance;
 
     @Column(nullable = false)
     private String nom;
@@ -73,6 +81,30 @@ public class Employer {
         this.fonction = fonction;
     }
 
+    public String getCINE() {
+        return CINE;
+    }
+
+    public void setCINE(String CINE) {
+        this.CINE = CINE;
+    }
+
+    public Date getDate_naissance() {
+        return date_naissance;
+    }
+
+    public void setDate_naissance(Date date_naissance) {
+        this.date_naissance = date_naissance;
+    }
+
+    public Departement getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(Departement departement) {
+        this.departement = departement;
+    }
+
     public Disponibilite getDisponibilite() {
 
         return disponibilite;
@@ -85,6 +117,8 @@ public class Employer {
 
     @OneToOne
     private Fonction fonction;
+    @OneToOne
+    private Departement departement;
     @ManyToOne
     private Disponibilite disponibilite;
 

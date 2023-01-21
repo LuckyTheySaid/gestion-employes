@@ -1,6 +1,7 @@
 package com.hendisantika.Service;
 
 
+import com.hendisantika.dto.FonctionCountDTO;
 import com.hendisantika.entity.Fonction;
 import com.hendisantika.repository.FonctionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,9 @@ public class FonctionService {
 
         return repo.getcountfonction();
     }
+    public List<FonctionCountDTO> getFonctionCounts() {
+        return repo.getFonctionCounts();
+    }
+
 
 }

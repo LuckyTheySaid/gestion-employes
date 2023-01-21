@@ -1,4 +1,4 @@
-package com.bezkoder.spring.thymeleaf.file.upload.service;
+package com.hendisantika.Service;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -66,10 +66,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     }
   }
 
-  @Override
-  public void deleteAll() {
-    FileSystemUtils.deleteRecursively(root.toFile());
-  }
+
 
   @Override
   public Stream<Path> loadAll() {

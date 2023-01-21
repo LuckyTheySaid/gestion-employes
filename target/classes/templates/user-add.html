@@ -48,6 +48,11 @@
                                            type="number" th:field="*{numBadge}" required>
                                 </div>
                                 <div class="form-group">
+                                    <label>CNIE</label>
+                                    <input class="form-control" id="cine" placeholder="Entrer CINE"
+                                           type="text" th:field="*{CINE}" required>
+                                </div>
+                                <div class="form-group">
                                     <label for="username">Nom</label>
                                     <input class="form-control" id="username" placeholder="Entrer le nom"
                                            type="text" th:field="*{nom}" required>
@@ -56,6 +61,21 @@
                                     <label for="password">Prenom</label>
                                     <input class="form-control" id="password" placeholder="Entrer le prenom"
                                            type="text" th:field="*{prenom}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">DATE NAISSANCE</label>
+                                    <input class="form-control" id="date_naissance" placeholder="Entrer la date de naissance"
+                                           type="date" th:field="*{date_naissance}">
+                                </div>
+                                <div class="form-group">
+                                    <label >Departement</label>
+                                    <select class="form-control" th:field="*{departement.code}" >
+                                        <option th:each="departement : ${listdepartement}"
+                                                th:value="${departement.code}"
+                                                th:text="${departement.libelle}"></option>
+
+                                    </select>
+
                                 </div>
                                 <div class="form-group">
                                     <label >Fonction</label>
@@ -77,6 +97,7 @@
                                     </select>
 
                                 </div>
+
 
 
                             </div>

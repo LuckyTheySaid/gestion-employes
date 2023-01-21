@@ -1,4 +1,4 @@
-package com.bezkoder.spring.thymeleaf.file.upload.service;
+package com.hendisantika.Service;
 
 import java.nio.file.Path;
 import java.util.stream.Stream;
@@ -14,8 +14,6 @@ public interface FilesStorageService {
   public Resource load(String filename);
 
   public boolean delete(String filename);
-  
-  public void deleteAll();
 
   public Stream<Path> loadAll();
 }

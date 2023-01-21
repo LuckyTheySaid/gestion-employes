@@ -1,4 +1,4 @@
-package com.bezkoder.spring.thymeleaf.file.upload.model;
+package com.hendisantika.entity;
 
 public class FileInfo {
   
@@ -11,18 +11,22 @@ public class FileInfo {
   }
 
   public String getName() {
+
     return this.name;
   }
 
   public void setName(String name) {
+
     this.name = name;
   }
 
   public String getUrl() {
+
     return this.url;
   }
 
   public void setUrl(String url) {
+
     this.url = url;
   }
 }

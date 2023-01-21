@@ -1,26 +1,37 @@
 package com.hendisantika.controller;
 
 import com.hendisantika.Service.FonctionService;
+import com.hendisantika.dto.FonctionCountDTO;
 import com.hendisantika.entity.Fonction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
+import java.util.List;
+
+@Controller
 public class FonctionController {
 
+
+    private final FonctionService fonctionService;
+
+    public FonctionController(FonctionService fonctionService) {
+        this.fonctionService = fonctionService;
+    }
 
     @Autowired
     private FonctionService fonctionservice;
 
 
-    @GetMapping("/test")
-    public String test(Model model){
-        model.addAttribute("fonction", new Fonction());
-        return "test";
+    @GetMapping("/user/listfonction")
+    public String gestionfonction(Model model){
+
+        List<Fonction> listfonction = fonctionservice.listAll();
+        model.addAttribute("listfonction", listfonction);
+        return "user-listfonctions";
     }
 
 
@@ -34,6 +45,20 @@ public class FonctionController {
         redirAttrs.addFlashAttribute("fonajouter", "Fonction bien ajouter.");
         fonctionservice.save(fon);
 
-        return "redirect:/user-addfonction";
+        return "redirect:/user/listfonction";
     }
+    @RequestMapping("/delete/{code}")
+    public String supprimerfonction(@PathVariable(name = "code") int code, RedirectAttributes redirAttrs) {
+        redirAttrs.addFlashAttribute("supprimer", "Fonction bien supprimer.");
+        fonctionservice.delete(code);
+        return "redirect:/user/listfonction";
+    }
+    @GetMapping("/user/getempcountbyfon")
+    public String getempcountbyfon(Model model){
+        List<FonctionCountDTO> fonctionCounts = fonctionService.getFonctionCounts();
+        model.addAttribute("fonctionCounts", fonctionCounts);
+        return "user-getempcountbyfon";
+    }
+
+
 }
